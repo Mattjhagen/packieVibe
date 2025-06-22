@@ -52,4 +52,4 @@ OPENAI_API_KEY=your_openai_key
 
 ---
 
-MIT © YourName
+MIT © PacMac Mobile LLC
