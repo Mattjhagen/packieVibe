@@ -1,109 +1,23 @@
-/* Reset + Layout */
-* {
-  box-sizing: border-box;
   margin: 0;
-  padding: 0;
-}
-
-html, body {
-  height: 100%;
-  background-color: #0f1117;
+  background-color: #000;
   color: #00ffff;
   font-family: 'Courier New', Courier, monospace;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+}
+
+#root {
   padding: 2rem;
-  line-height: 1.6;
-}
-
-/* Logo */
-.logo {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff;
-}
-
-/* Heading + Paragraph */
-h1 {
-  font-size: 2.4rem;
-  color: #00ffff;
-  margin-bottom: 0.5rem;
-}
-
-p {
-  font-size: 1rem;
-  color: #ccc;
-  margin-bottom: 2rem;
-}
-
-/* Form */
-form {
-  background: #1a1d23;
-  padding: 1.5rem;
-  border-radius: 8px;
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 0 10px #00ffff33;
-}
-
-input[type="email"] {
-  padding: 0.75rem;
-  border: none;
-  border-radius: 5px;
-  width: 250px;
-  background: #2b2e36;
-  color: white;
 }
 
 button {
-  background: #00ffff;
-  color: #0f1117;
-  padding: 0.75rem 1rem;
+  background-color: #00ffff;
+  color: #000;
   border: none;
-  border-radius: 5px;
+  padding: 0.5rem 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
 button:hover {
-  background: #00cccc;
+  background-color: #00dddd;
 }
-
-/* Terminal Demo Box */
-.terminal {
-  width: 100%;
-  max-width: 600px;
-  background: #1a1d23;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #00ffff33;
-  margin-top: 1rem;
-  text-align: left;
-}
-
-textarea {
-  width: 100%;
-  background: #0f1117;
-  color: #00ffb2;
-  border: 1px solid #00ffff66;
-  border-radius: 5px;
-  padding: 1rem;
-  margin-top: 1rem;
-  font-family: monospace;
-  resize: vertical;
-}
-
-pre {
-  background: #0b0c10;
-  color: #00ffb2;
-  padding: 1rem;
-  border-radius: 5px;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  overflow-x: auto;
-  box-shadow: inset 0 0 8px #00ffff22;
-}
+body {
