@@ -1,14 +1,33 @@
-{
+"type": "module",
+  {
   "name": "gpt-github-dashboard",
   "version": "1.0.0",
   "private": true,
-  "dependencies": {
+  "dependencies": "type": "module",
+  {
+    "axios": "^1.10.0",
+    "express": "^5.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "^5.0.1",
+    "simple-git": "^3.28.0"
   },
-  "scripts": {
+  "scripts": "type": "module",
+  {
     "start": "react-scripts start",
     "build": "react-scripts build"
+  },
+  "browserslist": "type": "module",
+  {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
