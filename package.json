@@ -11,9 +11,9 @@
     "react-scripts": "^5.0.1",
     "simple-git": "^3.28.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+ "scripts": {
+  "start": "node docs/backend/server.js"
+}
   },
   "browserslist": {
     "production": [
