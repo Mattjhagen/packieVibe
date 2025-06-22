@@ -1,107 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GPT GitHub Dashboard</title>
-    <textarea id="prompt" placeholder="Describe your app idea..."></textarea>
-<button id="generateAppBtn">Generate App</button>
-<div id="output"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VibeCode – Pre-Release Access</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark-mode">
 
-    <!-- PWA Meta Tags for iOS -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="PacMac" />
-    <link rel="apple-touch-icon" href="/assets/icon-192.png" />
-    <link rel="apple-touch-startup-image" href="/assets/splash.png">
-  </head>
+  <main class="container">
+    <section class="hero">
+      <h1>🚀 VibeCode – Pre-Release Access</h1>
+      <p class="tagline">“Build and launch an app by just describing it — no code, no servers, no problem.”</p>
+    </section>
 
-  <body>
-    <div id="root"></div>
-    
-    <!-- Animated Loader -->
-<div id="loader">
-  <img src="/assets/icon-192.png" alt="Loading..." class="pulse">
-</div>
+    <section class="intro">
+      <p><strong>Imagine describing an idea</strong> — and watching it become a real, installable app in seconds. VibeCode makes that real.</p>
+      <p>We’re launching soon. Get early access and help shape the future of AI-powered, no-code creation.</p>
+    </section>
 
-<style>
-  #loader {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
+    <section class="demo">
+      <input type="text" id="promptInput" placeholder="Describe your app idea..." />
+      <button id="generateAppBtn">Generate App</button>
+      <div id="output"></div>
+    </section>
 
-  .pulse {
-    width: 100px;
-    animation: pulse 1.5s infinite;
-  }
+    <section class="what-is">
+      <h2>🧠 What is VibeCode?</h2>
+      <p>VibeCode is a <strong>GPT-powered app and website generator</strong>. Describe what you want or upload your resume — and VibeCode instantly builds and hosts a personal site or app.</p>
+      <ul>
+        <li>✅ Build web apps from prompts</li>
+        <li>✅ Turn resumes into hosted About Me pages</li>
+        <li>✅ Free subdomains & domain/email upgrades</li>
+        <li>✅ PWA support</li>
+        <li>✅ Affiliate/referral links</li>
+        <li>✅ Fully serverless – zero setup</li>
+      </ul>
+    </section>
 
-  @keyframes pulse {
-    0%   { transform: scale(1);   opacity: 0.6; }
-    50%  { transform: scale(1.2); opacity: 1;   }
-    100% { transform: scale(1);   opacity: 0.6; }
-  }
-</style>
+    <section class="why-matters">
+      <h2>🌎 Why VibeCode Matters</h2>
+      <p>Too many no-code tools are <em>clunky, expensive</em>, or locked behind "pro" paywalls. <strong>VibeCode flips the script:</strong></p>
+      <ul>
+        <li>🆓 Free to try</li>
+        <li>🤖 AI-native</li>
+        <li>📈 Viral by design</li>
+        <li>🤝 Community-first</li>
+      </ul>
+    </section>
 
-<script>
-  window.addEventListener("load", () => {
-    document.getElementById("loader").style.display = "none";
-  });
-</script>
+    <section class="pre-release">
+      <h2>🧪 Join the Pre-Release</h2>
+      <p>We’re inviting early users to:</p>
+      <ul>
+        <li>🧪 Test new features</li>
+        <li>💬 Share feedback</li>
+        <li>🚀 Help us go viral</li>
+      </ul>
+      <p>
+        👉 <a href="signup.html">Join the waitlist</a><br />
+        👉 <a href="blog.html">Read the blog</a><br />
+        👉 <a href="https://github.com/Mattjhagen/packieVibe">Follow development</a>
+      </p>
+    </section>
 
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-          .then(reg => console.log('✅ Service Worker registered!', reg))
-          .catch(err => console.warn('❌ Service Worker failed:', err));
-      }
-    </script>
-    <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('✅ Service worker registered');
+    <section class="tech-stack">
+      <h2>🛠️ Tech Stack</h2>
+      <ul>
+        <li>OpenAI GPT API</li>
+        <li>Supabase Auth & DB</li>
+        <li>Express + GitHub Pages</li>
+        <li>Render (backend)</li>
+        <li>HTML/CSS/JS + Terminal-inspired UI</li>
+      </ul>
+    </section>
 
-        // Show "Update Available" if new service worker is waiting
-        reg.onupdatefound = () => {
-          const newWorker = reg.installing;
-          newWorker.onstatechange = () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              alert("🚀 Update Available! Refresh to see the latest version.");
-            }
-          };
-        };
-      })
-      .catch(err => {
-        console.warn('❌ Service worker registration failed:', err);
-      });
-  }
-</script>
+    <section class="cta">
+      <h2>🔗 Let’s Build the Future Together</h2>
+      <p>Want your resume to become a site?<br />Want your idea to become an app?<br /><strong>You’re already halfway there.</strong></p>
+      <p>🌟 <strong>Pre-release Access Ends Soon!</strong><br />
+        👉 <a href="signup.html">Sign Up for Early Access</a></p>
+      <p class="footer">Built with 💻 and 🚐 by PacMac Labs. (c) PacMac Mobile LLC</p>
+    </section>
+  </main>
 
-<script>
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    console.log("📲 Install prompt captured");
-
-    // OPTIONAL: Trigger later
-    // deferredPrompt.prompt();
-  });
-</script>
-
-    <script src="aboutme.js"></script>
-
-<script>
-  if (window.matchMedia('(display-mode: browser)').matches && /iPhone|iPad/.test(navigator.userAgent)) {
-    alert("🚀 To install VibeCode, tap the Share icon and choose 'Add to Home Screen'");
-  }
-</script>
-    
-  </body>
+  <script>
+    document.getElementById("generateAppBtn").addEventListener("click", () => {
+      const prompt = document.getElementById("promptInput").value;
+      document.getElementById("output").innerHTML = `🚀 Generating app for: "<strong>${prompt}</strong>"`;
+      // You can call your backend API here if needed
+    });
+  </script>
+</body>
 </html>
