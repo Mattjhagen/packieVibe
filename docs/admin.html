@@ -27,7 +27,7 @@
     }
 
     supabase.auth.onAuthStateChange((event, session) => {
-      if (session && session.user.email === 'your@email.com') {
+      if (session && session.user.email === 'info@pacmacmobile.com') {
         document.getElementById('form').style.display = 'block';
         document.getElementById('login').style.display = 'none';
       } else {
