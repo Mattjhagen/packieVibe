@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const button = document.getElementById("GenerateAppBtn");
-  ifv(button) {
+  if (button) {
   button.addEventListener("click", () => {
     generateApp();
   });
