@@ -9,6 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("✅ VibeCode API is online!");
+  
+});
 // GPT route
 app.post("/generate", async (req, res) => {
   const { prompt } = req.body;
