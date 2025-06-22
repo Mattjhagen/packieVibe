@@ -1,23 +1,53 @@
-  margin: 0;
-  background-color: #000;
-  color: #00ffff;
+body.dark-mode {
+  background-color: #121212;
+  color: #f1f1f1;
   font-family: 'Courier New', Courier, monospace;
-}
-
-#root {
   padding: 2rem;
 }
 
+h1, h2 {
+  color: #00ffc8;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 1rem 0;
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+}
+
 button {
-  background-color: #00ffff;
+  padding: 0.75rem 1.5rem;
+  background-color: #00ffc8;
   color: #000;
   border: none;
-  padding: 0.5rem 1rem;
   font-weight: bold;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #00dddd;
+a {
+  color: #00ffc8;
+  text-decoration: none;
 }
-body {
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li::before {
+  content: "➤ ";
+  color: #00ffc8;
+}
+
+footer {
+  font-size: 0.8rem;
+  color: #999;
+}
