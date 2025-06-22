@@ -127,3 +127,14 @@ nav {
   margin-top: 5px;
   font-style: italic;
 }
+/* SVG line animation default state */
+.graph polyline {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+}
+
+/* Logo glow effect */
+.glow {
+  text-shadow: 0 0 8px #00ffff, 0 0 15px #00ffff;
+}
+
