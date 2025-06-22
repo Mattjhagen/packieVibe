@@ -3,18 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VibeCode Preview</title>
+  <title>VibeCode App Preview</title>
+
+  <!-- Optional: Dark theme baseline -->
+  <style>
+    body {
+      background: #121212;
+      color: #f1f1f1;
+      font-family: monospace;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    #preview {
+      padding: 1rem;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 8px;
+    }
+
+    .fallback {
+      color: #ff5e5e;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    button.share {
+      margin-top: 1rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      background-color: #00ffc8;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
+
+  <h1>🚀 VibeCode App Preview</h1>
   <div id="preview"></div>
+  <div class="fallback" id="fallback" style="display:none;">⚠️ No app found in memory. Please go back and generate one first.</div>
+
+  <!-- Optional Share Button (if using Web Share API) -->
+  <button class="share" style="display:none;" id="shareBtn">🔗 Share This</button>
 
   <script>
     const html = localStorage.getItem("generatedHTML");
+
     if (html) {
       document.getElementById("preview").innerHTML = html;
+      document.getElementById("shareBtn").style.display = 'inline-block';
     } else {
-      document.getElementById("preview").innerText = "No preview available.";
+      document.getElementById("fallback").style.display = 'block';
     }
+
+    document.getElementById("shareBtn").addEventListener("click", async () => {
+      try {
+        await navigator.share({
+          title: "Check out my VibeCode App!",
+          text: "I just built this app in seconds with VibeCode.",
+          url: window.location.href
+        });
+      } catch (err) {
+        alert("📎 Sharing failed or was cancelled.");
+      }
+    });
   </script>
 </body>
 </html>
