@@ -23,5 +23,27 @@
           .catch(err => console.warn('❌ Service Worker failed:', err));
       }
     </script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => {
+        console.log('✅ Service worker registered');
+
+        // Show "Update Available" if new service worker is waiting
+        reg.onupdatefound = () => {
+          const newWorker = reg.installing;
+          newWorker.onstatechange = () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              alert("🚀 Update Available! Refresh to see the latest version.");
+            }
+          };
+        };
+      })
+      .catch(err => {
+        console.warn('❌ Service worker registration failed:', err);
+      });
+  }
+</script>
+    
   </body>
 </html>
