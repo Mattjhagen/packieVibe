@@ -12,7 +12,12 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Copy /public contents to root
+    - name: Setup Node (needed by GH Pages action)
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Copy /public contents to site/
       run: |
         mkdir site
         cp -r public/* site/
