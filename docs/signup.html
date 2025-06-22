@@ -4,20 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>VibeCode Pre-Release Signup</title>
-  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = 'https://your-project.supabase.co';
+    const SUPABASE_ANON_KEY = 'your-anon-key';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  </script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      margin: 0;
       background: #0f1117;
-      color: #ffffff;
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 2rem;
-    }
-    h1 {
-      color: #00ffff;
     }
     form {
       margin-top: 1rem;
@@ -26,7 +27,6 @@
       border-radius: 10px;
       width: 100%;
       max-width: 400px;
-      box-shadow: 0 0 10px #00ffff33;
     }
     input, button {
       width: 100%;
@@ -34,31 +34,31 @@
       margin-top: 1rem;
       border: none;
       border-radius: 5px;
-      font-size: 1rem;
     }
-    input {
-      background: #2b2e36;
-      color: white;
-    }
-    button {
-      background: #00ffff;
-      color: #0f1117;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    p {
-      color: #aaaaaa;
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
-    }
+    input { background: #2b2e36; color: white; }
+    button { background: #00ffff; color: #0f1117; font-weight: bold; cursor: pointer; }
   </style>
 </head>
 <body>
-  <h1>Join VibeCode Early Access</h1>
-  <p>Be first in line for the no-code AI builder of the future.</p>
-  <form action="https://your-backend.onrender.com/signup" method="POST">
-    <input type="email" name="email" placeholder="Your email" required />
+  <h1>Join the Pre-Release</h1>
+  <form id="signupForm">
+    <input type="email" id="email" placeholder="Enter your email" required />
     <button type="submit">Notify Me</button>
   </form>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const { data, error } = await supabase.from('signups').insert([{ email }]);
+      if (error) {
+        alert("❌ Error: " + error.message);
+      } else {
+        alert("✅ You're on the list!");
+        form.reset();
+      }
+    });
+  </script>
 </body>
 </html>
