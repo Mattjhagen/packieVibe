@@ -1,107 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GPT GitHub Dashboard</title>
-    <textarea id="prompt" placeholder="Describe your app idea..."></textarea>
-<button id="generateAppBtn">Generate App</button>
-<div id="output"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VibeCode – Prompt to Publish</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <meta name="theme-color" content="#5C27FE" />
+</head>
+<body>
+  <div class="container">
+    <h1>From Prompt to Publish</h1>
+    <p class="tagline">How VibeCode Lets You Build Apps Without Servers, Setups, or Stress</p>
+    <div class="input-group">
+      <input type="text" id="prompt" placeholder="Create a task management app" />
+      <button id="generateAppBtn">Generate</button>
+    </div>
+    <div id="output"></div>
+  </div>
 
-    <!-- PWA Meta Tags for iOS -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="PacMac" />
-    <link rel="apple-touch-icon" href="/assets/icon-192.png" />
-    <link rel="apple-touch-startup-image" href="/assets/splash.png">
-  </head>
-
-  <body>
-    <div id="root"></div>
-    
-    <!-- Animated Loader -->
-<div id="loader">
-  <img src="/assets/icon-192.png" alt="Loading..." class="pulse">
-</div>
-
-<style>
-  #loader {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-
-  .pulse {
-    width: 100px;
-    animation: pulse 1.5s infinite;
-  }
-
-  @keyframes pulse {
-    0%   { transform: scale(1);   opacity: 0.6; }
-    50%  { transform: scale(1.2); opacity: 1;   }
-    100% { transform: scale(1);   opacity: 0.6; }
-  }
-</style>
-
-<script>
-  window.addEventListener("load", () => {
-    document.getElementById("loader").style.display = "none";
-  });
-</script>
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-          .then(reg => console.log('✅ Service Worker registered!', reg))
-          .catch(err => console.warn('❌ Service Worker failed:', err));
+  <script>
+    document.getElementById("generateAppBtn").addEventListener("click", () => {
+      const prompt = document.getElementById("prompt").value.trim();
+      if (!prompt) {
+        document.getElementById("output").innerHTML = "❗ Please enter an idea.";
+        return;
       }
-    </script>
-    <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('✅ Service worker registered');
+      document.getElementById("output").innerHTML = "⏳ Generating app for: <strong>" + prompt + "</strong>";
 
-        // Show "Update Available" if new service worker is waiting
-        reg.onupdatefound = () => {
-          const newWorker = reg.installing;
-          newWorker.onstatechange = () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              alert("🚀 Update Available! Refresh to see the latest version.");
-            }
-          };
-        };
+      fetch("https://packiepresents.onrender.com/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.html) {
+          localStorage.setItem("generatedHTML", data.html);
+          window.location.href = "preview.html";
+        } else {
+          document.getElementById("output").innerHTML = "✅ App generated!";
+        }
       })
       .catch(err => {
-        console.warn('❌ Service worker registration failed:', err);
+        console.error(err);
+        document.getElementById("output").innerHTML = "❌ Error generating app.";
       });
-  }
-</script>
+    });
 
-<script>
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    console.log("📲 Install prompt captured");
-
-    // OPTIONAL: Trigger later
-    // deferredPrompt.prompt();
-  });
-</script>
-
-    <script src="aboutme.js"></script>
-
-<script>
-  if (window.matchMedia('(display-mode: browser)').matches && /iPhone|iPad/.test(navigator.userAgent)) {
-    alert("🚀 To install VibeCode, tap the Share icon and choose 'Add to Home Screen'");
-  }
-</script>
-    
-  </body>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
+  </script>
+</body>
 </html>
