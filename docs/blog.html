@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VibeCode Blog</title>
-  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = 'https://your-project.supabase.co';
+    const SUPABASE_ANON_KEY = 'your-anon-key';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  </script>
   <style>
-    body {
-      background: #0f1117;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 2rem;
-    }
-    h1 {
-      color: #00ffff;
-      margin-bottom: 1rem;
-    }
-    .post {
-      background: #1a1d23;
-      border-left: 5px solid #00ffff;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      border-radius: 8px;
-    }
-    .post h2 {
-      color: white;
-      margin: 0 0 0.5rem;
-    }
-    .post p {
-      color: #ccc;
-    }
-    .post a {
-      color: #00ffff;
-      text-decoration: none;
-    }
+    body { background: #0f1117; color: white; font-family: 'Segoe UI', sans-serif; padding: 2rem; }
+    h1 { color: #00ffff; }
+    .post { margin-bottom: 1.5rem; background: #1a1d23; padding: 1rem; border-left: 4px solid #00ffff; border-radius: 6px; }
+    .post h2 { margin: 0; }
+    .post a { color: #00ffff; text-decoration: none; }
+    .post p { color: #ccc; }
   </style>
 </head>
 <body>
   <h1>📚 VibeCode Blog</h1>
+  <div id="blogPosts">Loading...</div>
 
-  <div class="post">
-    <h2><a href="/blog/resume-to-site-ai.html">How to Turn Your Resume Into a Personal Website</a></h2>
-    <p>Transform your resume into a sleek, hosted site using AI — in under a minute.</p>
-  </div>
+  <script>
+    async function loadBlog() {
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('published', true)
+        .order('created_at', { ascending: false });
 
-  <div class="post">
-    <h2><a href="/blog/no-code-app-builder-future.html">No-Code App Builders Are Changing Everything</a></h2>
-    <p>Why tools like VibeCode are redefining how we build, launch, and scale.</p>
-  </div>
+      const container = document.getElementById('blogPosts');
+      container.innerHTML = '';
 
+      if (error) {
+        container.innerHTML = `<p>Error loading blog posts: ${error.message}</p>`;
+        return;
+      }
+
+      data.forEach(post => {
+        const div = document.createElement('div');
+        div.className = 'post';
+        div.innerHTML = `
+          <h2><a href="/blog/${post.slug}.html">${post.title}</a></h2>
+          <p>${post.excerpt}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    loadBlog();
+  </script>
 </body>
 </html>
