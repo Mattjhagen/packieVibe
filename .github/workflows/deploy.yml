@@ -9,21 +9,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Setup Node (needed by GH Pages action)
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Copy /public contents to /docs
+        run: |
+          rm -rf docs
+          mkdir docs
+          cp -r public/* docs/
 
-    - name: Copy /public contents to site/
-      run: |
-        mkdir site
-        cp -r public/* site/
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./site
+      - name: Commit & Push docs
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git commit -m "Deploy to /docs for GitHub Pages" || echo "No changes to commit"
+          git push
