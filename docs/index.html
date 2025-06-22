@@ -102,6 +102,43 @@
     alert("🚀 To install VibeCode, tap the Share icon and choose 'Add to Home Screen'");
   }
 </script>
+    <script>
+  async function generateApp() {
+    const prompt = document.getElementById('prompt').value;
+    const output = document.getElementById('output');
+
+    const typeOut = async (text, delay = 30) => {
+      output.textContent = '';
+      for (let i = 0; i < text.length; i++) {
+        output.textContent += text[i];
+        await new Promise(res => setTimeout(res, delay));
+      }
+    };
+
+    await typeOut(`> Parsing prompt...\n> "${prompt}"\n> Generating components...`);
+
+    try {
+      const res = await fetch('https://packiepresents.onrender.com/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await res.json();
+      const result = data.result || '// No output returned.';
+      await typeOut(`> Compiling frontend...\n> Deploying to sandbox...\n\n${result}`, 1);
+    } catch (err) {
+      await typeOut(`❌ Error: ${err.message}`, 10);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('generateAppBtn');
+    if (btn) {
+      btn.addEventListener('click', generateApp);
+    }
+  });
+</script>
     
   </body>
 </html>
