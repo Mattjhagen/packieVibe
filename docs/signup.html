@@ -1,1 +1,64 @@
-.gitignore
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VibeCode Pre-Release Signup</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #0f1117;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: #00ffff;
+    }
+    form {
+      margin-top: 1rem;
+      background: #1a1d23;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 10px #00ffff33;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 1rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    input {
+      background: #2b2e36;
+      color: white;
+    }
+    button {
+      background: #00ffff;
+      color: #0f1117;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    p {
+      color: #aaaaaa;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Join VibeCode Early Access</h1>
+  <p>Be first in line for the no-code AI builder of the future.</p>
+  <form action="https://your-backend.onrender.com/signup" method="POST">
+    <input type="email" name="email" placeholder="Your email" required />
+    <button type="submit">Notify Me</button>
+  </form>
+</body>
+</html>
