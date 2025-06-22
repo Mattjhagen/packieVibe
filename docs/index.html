@@ -1,107 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GPT GitHub Dashboard</title>
-    <textarea id="prompt" placeholder="Describe your app idea..."></textarea>
-<button id="generateAppBtn">Generate App</button>
-<div id="output"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VibeCode – AI App Builder</title>
 
-    <!-- PWA Meta Tags for iOS -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="PacMac" />
-    <link rel="apple-touch-icon" href="/assets/icon-192.png" />
-    <link rel="apple-touch-startup-image" href="/assets/splash.png">
-  </head>
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/icon-192.png" type="image/png" />
+  <meta name="description" content="VibeCode is a no-server AI app builder that lets you deploy web apps from a single prompt. No code. No setup. Just vibes." />
+  <meta name="keywords" content="AI website builder, no-code, VibeCode, app generator, terminal web design" />
+  <meta name="author" content="VibeCode Team" />
+  <meta name="theme-color" content="#0f1117" />
 
-  <body>
-    <div id="root"></div>
-    
-    <!-- Animated Loader -->
-<div id="loader">
-  <img src="/assets/icon-192.png" alt="Loading..." class="pulse">
-</div>
+  <!-- Social Meta -->
+  <meta property="og:title" content="VibeCode – Deploy from a Prompt" />
+  <meta property="og:description" content="Create, deploy, and share full-stack apps from your browser using VibeCode – powered by GPT and GitHub." />
+  <meta property="og:image" content="/assets/icon-192.png" />
+  <meta property="og:url" content="https://mattjhagen.github.io/packieVibe/" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-<style>
-  #loader {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
+  <!-- Fonts & Styles -->
+  <style>
+    body {
+      background-color: #0f1117;
+      color: #00ffff;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 2rem;
+      line-height: 1.6;
+    }
 
-  .pulse {
-    width: 100px;
-    animation: pulse 1.5s infinite;
-  }
+    h1 {
+      font-size: 2.5rem;
+      color: #00ffff;
+    }
 
-  @keyframes pulse {
-    0%   { transform: scale(1);   opacity: 0.6; }
-    50%  { transform: scale(1.2); opacity: 1;   }
-    100% { transform: scale(1);   opacity: 0.6; }
-  }
-</style>
+    a.button {
+      display: inline-block;
+      margin: 0.5rem 1rem 0.5rem 0;
+      padding: 0.75rem 1.5rem;
+      background-color: #1a1d23;
+      color: #00ffff;
+      text-decoration: none;
+      border: 1px solid #00ffff;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
 
-<script>
-  window.addEventListener("load", () => {
-    document.getElementById("loader").style.display = "none";
-  });
-</script>
+    .section {
+      margin-top: 3rem;
+    }
 
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-          .then(reg => console.log('✅ Service Worker registered!', reg))
-          .catch(err => console.warn('❌ Service Worker failed:', err));
+    .blog-preview {
+      background-color: #1a1d23;
+      padding: 1rem;
+      border-left: 4px solid #00ffff;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .blog-preview h3 {
+      margin: 0;
+    }
+
+    .blog-preview p {
+      color: #ccc;
+    }
+
+    footer {
+      margin-top: 4rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>🚀 VibeCode</h1>
+  <p>Build & deploy apps from a single prompt. No servers. No setup. Just vibes.</p>
+
+  <a class="button" href="/blog.html">📚 Read the Blog</a>
+  <a class="button" href="/admin.html">🛠️ Admin Login</a>
+  <a class="button" href="/signup.html">✍️ Blog Signup</a>
+  <a class="button" href="/generator.html">⚡ Generate an App</a>
+
+  <div class="section">
+    <h2>📰 Latest Blog Posts</h2>
+    <div id="blogPreview">Loading...</div>
+  </div>
+
+  <footer>
+    &copy; VibeCode, launched June 22, 2025. Made with ❤️ using GPT, GitHub & Render.
+  </footer>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const supabase = supabase.createClient("https://your-project.supabase.co", "your-anon-key");
+
+    async function loadBlogPreview() {
+      const { data, error } = await supabase
+        .from('posts')
+        .select('title, slug, excerpt')
+        .eq('published', true)
+        .order('created_at', { ascending: false })
+        .limit(3);
+
+      const container = document.getElementById('blogPreview');
+      container.innerHTML = '';
+
+      if (error) {
+        container.innerHTML = `<p>Error loading blog: ${error.message}</p>`;
+        return;
       }
-    </script>
-    <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('✅ Service worker registered');
 
-        // Show "Update Available" if new service worker is waiting
-        reg.onupdatefound = () => {
-          const newWorker = reg.installing;
-          newWorker.onstatechange = () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              alert("🚀 Update Available! Refresh to see the latest version.");
-            }
-          };
-        };
-      })
-      .catch(err => {
-        console.warn('❌ Service worker registration failed:', err);
+      data.forEach(post => {
+        const div = document.createElement('div');
+        div.className = 'blog-preview';
+        div.innerHTML = `
+          <h3><a href="/blog/${post.slug}.html">${post.title}</a></h3>
+          <p>${post.excerpt}</p>
+        `;
+        container.appendChild(div);
       });
-  }
-</script>
+    }
 
-<script>
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    console.log("📲 Install prompt captured");
-
-    // OPTIONAL: Trigger later
-    // deferredPrompt.prompt();
-  });
-</script>
-
-    <script src="aboutme.js"></script>
-
-<script>
-  if (window.matchMedia('(display-mode: browser)').matches && /iPhone|iPad/.test(navigator.userAgent)) {
-    alert("🚀 To install VibeCode, tap the Share icon and choose 'Add to Home Screen'");
-  }
-</script>
-    
-  </body>
+    loadBlogPreview();
+  </script>
+</body>
 </html>
