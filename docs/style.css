@@ -1,0 +1,23 @@
+  margin: 0;
+  background-color: #000;
+  color: #00ffff;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#root {
+  padding: 2rem;
+}
+
+button {
+  background-color: #00ffff;
+  color: #000;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #00dddd;
+}
+body {
