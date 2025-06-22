@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VibeCode – Prompt to Publish</title>
+  <title>VibeCode by PacMac</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="assets/icon-192.png" />
@@ -12,22 +12,35 @@
 <body>
   <div class="container">
     <h1>From Prompt to Publish</h1>
-    <p class="tagline">How VibeCode Lets You Build Apps Without Servers, Setups, or Stress</p>
+    <p class="tagline">VibeCode by PacMac lets you build web apps instantly — just describe it, generate it, and go live.</p>
+
     <div class="input-group">
-      <input type="text" id="prompt" placeholder="Create a task management app" />
+      <input type="text" id="prompt" placeholder="e.g. build an app like Uber but for horses" />
       <button id="generateAppBtn">Generate</button>
     </div>
+
     <div id="output"></div>
+
+    <div class="description">
+      <p>🧠 Powered by GPT. No servers. No setup. Just vibes.</p>
+      <ul>
+        <li>✅ Build apps with natural language</li>
+        <li>✅ Instantly share or install as PWA</li>
+        <li>✅ Free subdomain or custom domain</li>
+      </ul>
+      <p>Learn more on <a href="https://github.com/Mattjhagen/packieVibe" target="_blank">GitHub</a>.</p>
+    </div>
   </div>
 
   <script>
     document.getElementById("generateAppBtn").addEventListener("click", () => {
       const prompt = document.getElementById("prompt").value.trim();
       if (!prompt) {
-        document.getElementById("output").innerHTML = "❗ Please enter an idea.";
+        document.getElementById("output").innerHTML = "❗ Please enter a prompt.";
         return;
       }
-      document.getElementById("output").innerHTML = "⏳ Generating app for: <strong>" + prompt + "</strong>";
+
+      document.getElementById("output").innerHTML = "⏳ Generating your app...";
 
       fetch("https://packiepresents.onrender.com/generate", {
         method: "POST",
@@ -40,12 +53,12 @@
           localStorage.setItem("generatedHTML", data.html);
           window.location.href = "preview.html";
         } else {
-          document.getElementById("output").innerHTML = "✅ App generated!";
+          document.getElementById("output").innerHTML = "⚠️ Received empty HTML. Try again.";
         }
       })
       .catch(err => {
         console.error(err);
-        document.getElementById("output").innerHTML = "❌ Error generating app.";
+        document.getElementById("output").innerHTML = "❌ Error contacting server.";
       });
     });
 
