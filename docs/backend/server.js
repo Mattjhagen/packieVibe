@@ -2,6 +2,10 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import OpenAI from "openai";
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
 
 dotenv.config();
 const app = express();
@@ -9,11 +13,10 @@ app.use(cors());
 app.use(express.json());
 
 // OpenAI Setup
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+const completion = await openai.chat.completions.create({
+  model: "gpt-4",
+  messages: [{ role: "user", content: prompt }],
 });
-const openai = new OpenAIApi(configuration);
-
 // Main Route
 app.post("/generate", async (req, res) => {
   const { prompt } = req.body;
