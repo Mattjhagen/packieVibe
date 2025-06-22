@@ -90,8 +90,39 @@
     deferredPrompt = e;
     console.log("📲 Install prompt captured");
 
-    // OPTIONAL: Trigger later
-    // deferredPrompt.prompt();
+   <script>
+async function generateApp() {
+  const prompt = document.getElementById('prompt').value;
+  const output = document.getElementById('output');
+
+  // Simulated typing function
+  const typeOut = async (text, delay = 30) => {
+    output.textContent = '';
+    for (let i = 0; i < text.length; i++) {
+      output.textContent += text[i];
+      await new Promise(res => setTimeout(res, delay));
+    }
+  };
+
+  // Simulated build steps
+  await typeOut(`> Parsing prompt...\n> "${prompt}"\n> Generating components...`);
+
+  try {
+    const res = await fetch('https://packiepresents.onrender.com/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
+    });
+
+    const data = await res.json();
+    const result = data.result || '// No code returned.';
+
+    await typeOut(`> Compiling frontend...\n> Deploying to sandbox...\n\n${result}`, 1);
+  } catch (err) {
+    await typeOut(`❌ Error connecting to backend:\n${err.message}`, 10);
+  }
+}
+</script>
   });
 </script>
 
