@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prompt to App</title>
+  <link rel="stylesheet" href="prompt-style.css" />
+</head>
+<body>
+  <div id="app">
+    <h2>✨ Build with a Prompt</h2>
+    <textarea id="promptInput" placeholder="Describe your app idea..."></textarea>
+    <button id="generateBtn">Generate App</button>
+
+    <div id="loading" style="display:none;">Generating…</div>
+    <iframe id="preview" style="width:100%; height:400px; display:none;"></iframe>
+  </div>
+
+  <script src="prompt-script.js"></script>
+</body>
+</html>
