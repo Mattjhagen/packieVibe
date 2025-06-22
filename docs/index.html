@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GPT GitHub Dashboard</title>
+    <textarea id="prompt" placeholder="Describe your app idea..."></textarea>
+<button id="generateAppBtn">Generate App</button>
+<div id="output"></div>
 
     <!-- PWA Meta Tags for iOS -->
     <link rel="manifest" href="/manifest.json" />
@@ -16,10 +19,6 @@
 
   <body>
     <div id="root"></div>
-
-    <textarea id="prompt" placeholder="Describe your app idea..."></textarea>
-<button id="generateAppBtn">Generate App</button>
-<div id="output"></div>
     
     <!-- Animated Loader -->
 <div id="loader">
