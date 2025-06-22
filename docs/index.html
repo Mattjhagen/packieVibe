@@ -1,125 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PacMac VibeCode – Coming Soon</title>
-  <link rel="icon" href="assets/favicon.ico" />
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <style>
-    body {
-      font-family: monospace;
-      background: #0f1117;
-      color: #00ffff;
-      margin: 0;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    p {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 2rem;
-    }
-    form {
-      margin-bottom: 3rem;
-    }
-    input[type="email"] {
-      padding: 0.75rem;
-      border-radius: 5px;
-      border: none;
-      margin-right: 0.5rem;
-      width: 250px;
-      background: #1a1d23;
-      color: white;
-    }
-    button {
-      padding: 0.75rem 1rem;
-      background: #00ffff;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #0f1117;
-    }
-    .terminal {
-      background: #1a1d23;
-      padding: 1rem;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 600px;
-      text-align: left;
-      box-shadow: 0 0 15px #00ffff33;
-    }
-    .terminal pre {
-      color: #00ffb2;
-    }
-    .logo {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPT GitHub Dashboard</title>
+    <textarea id="prompt" placeholder="Describe your app idea..."></textarea>
+<button id="generateAppBtn">Generate App</button>
+<div id="output"></div>
 
-  <div class="logo">{<span style="color: white">V</span>}</div>
-  <h1>VibeCode by PacMac</h1>
-  <p>🚀 Build and launch apps with a single prompt – coming soon.</p>
+    <!-- PWA Meta Tags for iOS -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="PacMac" />
+    <link rel="apple-touch-icon" href="/assets/icon-192.png" />
+    <link rel="apple-touch-startup-image" href="/assets/splash.png">
+  </head>
 
-  <form id="signupForm">
-    <input type="email" id="email" placeholder="Get notified" required />
-    <button type="submit">Join Waitlist</button>
-  </form>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Animated Loader -->
+<div id="loader">
+  <img src="/assets/icon-192.png" alt="Loading..." class="pulse">
+</div>
 
-  <div class="terminal">
-    <p><strong>🧪 Try it now:</strong> Describe your app idea below and see the demo in action!</p>
-    <textarea id="prompt" rows="4" style="width: 100%; margin-top: 1rem;" placeholder="ex: Build me a portfolio site with contact form"></textarea>
-    <button style="margin-top: 1rem;" onclick="generateApp()">Generate App</button>
-    <pre id="output">> Waiting for your prompt...</pre>
-  </div>
+<style>
+  #loader {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
 
-  <script>
-    const SUPABASE_URL = 'https://your-project.supabase.co';
-    const SUPABASE_ANON_KEY = 'your-anon-key';
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  .pulse {
+    width: 100px;
+    animation: pulse 1.5s infinite;
+  }
 
-    const form = document.getElementById('signupForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const { data, error } = await supabase.from('signups').insert([{ email }]);
-      if (error) {
-        alert("❌ " + error.message);
-      } else {
-        alert("✅ You're on the list!");
-        form.reset();
+  @keyframes pulse {
+    0%   { transform: scale(1);   opacity: 0.6; }
+    50%  { transform: scale(1.2); opacity: 1;   }
+    100% { transform: scale(1);   opacity: 0.6; }
+  }
+</style>
+
+<script>
+  window.addEventListener("load", () => {
+    document.getElementById("loader").style.display = "none";
+  });
+</script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('✅ Service Worker registered!', reg))
+          .catch(err => console.warn('❌ Service Worker failed:', err));
       }
-    });
+    </script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => {
+        console.log('✅ Service worker registered');
 
-    async function generateApp() {
-      const prompt = document.getElementById('prompt').value;
-      const output = document.getElementById('output');
-      output.textContent = '> Generating...';
-      try {
-        const res = await fetch('https://packiepresents.onrender.com/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt })
-        });
-        const data = await res.json();
-        output.textContent = data.result || '> No result returned.';
-      } catch (err) {
-        output.textContent = '> ❌ Error: ' + err.message;
-      }
-    }
-  </script>
+        // Show "Update Available" if new service worker is waiting
+        reg.onupdatefound = () => {
+          const newWorker = reg.installing;
+          newWorker.onstatechange = () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              alert("🚀 Update Available! Refresh to see the latest version.");
+            }
+          };
+        };
+      })
+      .catch(err => {
+        console.warn('❌ Service worker registration failed:', err);
+      });
+  }
+</script>
 
-</body>
+<script>
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    console.log("📲 Install prompt captured");
+
+    // OPTIONAL: Trigger later
+    // deferredPrompt.prompt();
+  });
+</script>
+
+    <script src="aboutme.js"></script>
+
+<script>
+  if (window.matchMedia('(display-mode: browser)').matches && /iPhone|iPad/.test(navigator.userAgent)) {
+    alert("🚀 To install VibeCode, tap the Share icon and choose 'Add to Home Screen'");
+  }
+</script>
+    
+  </body>
 </html>
