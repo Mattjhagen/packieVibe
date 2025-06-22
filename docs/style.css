@@ -1,69 +1,23 @@
-.chart {
-  width: 100%;
-  max-width: 500px;
-  height: 200px;
-  margin-top: 20px;
-}
-
-.graph {
-  width: 100%;
-  height: 100%;
-}
-
-.graph polyline {
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  stroke-dasharray: 400;
-  stroke-dashoffset: 400;
-}
-
-.graph circle {
-  fill: #00ffff;
-}
-
-.mobile-preview {
-  width: 300px;
-  background: #0b0c10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.phone {
-  width: 220px;
-  height: 440px;
-  border: 2px solid #222;
-  border-radius: 30px;
-  background: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mobile-screen {
-  text-align: center;
-  color: #00ffff;
-  font-family: monospace;
-}
-
-.mobile-screen .logo {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.mobile-screen h2 {
   margin: 0;
-  color: white;
+  background-color: #000;
+  color: #00ffff;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#root {
+  padding: 2rem;
+}
+
+button {
+  background-color: #00ffff;
+  color: #000;
+  border: none;
+  padding: 0.5rem 1rem;
   font-weight: bold;
+  cursor: pointer;
 }
 
-.mobile-screen p {
-  color: #aaa;
-  margin-top: 5px;
-  font-style: italic;
+button:hover {
+  background-color: #00dddd;
 }
-
-/* Logo glow effect */
-.glow {
-  text-shadow: 0 0 8px #00ffff, 0 0 15px #00ffff;
-}
+body {
