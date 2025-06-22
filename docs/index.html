@@ -1,118 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GPT GitHub Dashboard</title>
-    <textarea id="prompt" placeholder="Describe your app idea..."></textarea>
-<button id="generateAppBtn">Generate App</button>
-<div id="output"></div>
+.chart {
+  width: 100%;
+  max-width: 500px;
+  height: 200px;
+  margin-top: 20px;
+}
 
-    <!-- PWA Meta Tags for iOS -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="PacMac" />
-    <link rel="apple-touch-icon" href="/assets/icon-192.png" />
-    <link rel="apple-touch-startup-image" href="/assets/splash.png">
-  </head>
+.graph {
+  width: 100%;
+  height: 100%;
+}
 
-  <body>
-    <div id="root"></div>
-    
-    <!-- Animated Loader -->
-<div id="loader">
-  <img src="/assets/icon-192.png" alt="Loading..." class="pulse">
-</div>
+.graph polyline {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+}
 
-<style>
-  #loader {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
+.graph circle {
+  fill: #00ffff;
+}
 
-  .pulse {
-    width: 100px;
-    animation: pulse 1.5s infinite;
-  }
+.mobile-preview {
+  width: 300px;
+  background: #0b0c10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  @keyframes pulse {
-    0%   { transform: scale(1);   opacity: 0.6; }
-    50%  { transform: scale(1.2); opacity: 1;   }
-    100% { transform: scale(1);   opacity: 0.6; }
-    <section id="blog">
-  <h2>From the Blog</h2>
-  <ul>
-    <li><a href="/blog/resume-to-site-ai.html">Turn Your Resume Into a Personal Site</a></li>
-    <li><a href="/blog/no-code-app-builder-future.html">No-Code App Builders Are Taking Over</a></li>
-  </ul>
-</section>
-  }
-</style>
+.phone {
+  width: 220px;
+  height: 440px;
+  border: 2px solid #222;
+  border-radius: 30px;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-<script>
-  window.addEventListener("load", () => {
-    document.getElementById("loader").style.display = "none";
-  });
-</script>
+.mobile-screen {
+  text-align: center;
+  color: #00ffff;
+  font-family: monospace;
+}
 
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('✅ Service Worker registered!', reg))
-          .catch(err => console.warn('❌ Service Worker failed:', err));
-      }
-    </script>
-    <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('✅ Service worker registered');
+.mobile-screen .logo {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
 
-        // Show "Update Available" if new service worker is waiting
-        reg.onupdatefound = () => {
-          const newWorker = reg.installing;
-          newWorker.onstatechange = () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              alert("🚀 Update Available! Refresh to see the latest version.");
-            }
-          };
-        };
-      })
-      .catch(err => {
-        console.warn('❌ Service worker registration failed:', err);
-      });
-  }
-</script>
+.mobile-screen h2 {
+  margin: 0;
+  color: white;
+  font-weight: bold;
+}
 
-<script>
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    console.log("📲 Install prompt captured");
+.mobile-screen p {
+  color: #aaa;
+  margin-top: 5px;
+  font-style: italic;
+}
 
-    // OPTIONAL: Trigger later
-    // deferredPrompt.prompt();
-  });
-  
-</script>
-
-    <script src="aboutme.js"></script>
-
-<script>
-  if (window.matchMedia('(display-mode: browser)').matches && /iPhone|iPad/.test(navigator.userAgent)) {
-    alert("🚀 To install VibeCode, tap the Share icon and choose 'Add to Home Screen'");
-  }
-</script>
-
-<script src="script.js"></script>
-    <script src="/js/injectSchema.js" defer></script>
-    
-  </body>
-</html>
+/* Logo glow effect */
+.glow {
+  text-shadow: 0 0 8px #00ffff, 0 0 15px #00ffff;
+}
