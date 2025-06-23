@@ -1,29 +1,28 @@
+// public/sw.js
+
 const CACHE_NAME = "vibecode-cache-v1";
 const urlsToCache = [
   '/',
   '/index.html',
-  '/preview.html',
   '/style.css',
-  '/manifest.json',
+  '/aboutme.js',
   '/assets/icon-192.png'
 ];
 
+// Install event: cache files
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames =>
-      Promise.all(cacheNames.filter(name => name !== CACHE_NAME).map(name => caches.delete(name)))
-    )
-  );
-});
-
+// Fetch event: serve cached content
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
   );
 });

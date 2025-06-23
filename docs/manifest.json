@@ -1,14 +1,19 @@
 {
   "name": "VibeCode",
   "short_name": "VibeCode",
-  "start_url": "/index.html",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#5C27FE",
-  "theme_color": "#5C27FE",
+  "background_color": "#000000",
+  "theme_color": "#00ffff",
   "icons": [
     {
       "src": "/assets/icon-192.png",
       "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]

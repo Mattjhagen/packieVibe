@@ -1,69 +1,23 @@
-
-body {
   margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(to bottom, #5C27FE, #3b169e);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  text-align: center;
+  background-color: #000;
+  color: #00ffff;
+  font-family: 'Courier New', Courier, monospace;
 }
 
-.container {
+#root {
   padding: 2rem;
-  max-width: 600px;
-}
-
-h1 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.tagline {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-}
-
-.input-group {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-input[type="text"] {
-  padding: 0.75rem;
-  border-radius: 6px;
-  border: none;
-  font-size: 1rem;
-  width: 100%;
-  max-width: 400px;
 }
 
 button {
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  background: #fff;
-  color: #5C27FE;
+  background-color: #00ffff;
+  color: #000;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 0.5rem 1rem;
   font-weight: bold;
+  cursor: pointer;
 }
 
-.description {
-  margin-top: 2rem;
-  font-size: 0.9rem;
+button:hover {
+  background-color: #00dddd;
 }
-
-.description ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.description ul li::before {
-  content: "✅ ";
-}
+body {
