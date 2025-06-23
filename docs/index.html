@@ -1,107 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GPT GitHub Dashboard</title>
-    <textarea id="prompt" placeholder="Describe your app idea..."></textarea>
-<button id="generateAppBtn">Generate App</button>
-<div id="output"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VibeCode – Coming Soon</title>
 
-    <!-- PWA Meta Tags for iOS -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="PacMac" />
-    <link rel="apple-touch-icon" href="/assets/icon-192.png" />
-    <link rel="apple-touch-startup-image" href="/assets/splash.png">
-  </head>
+  <!-- Meta -->
+  <meta name="description" content="VibeCode lets you build & deploy full web apps from a single prompt. No servers, no setup. Just vibes." />
+  <link rel="icon" href="/assets/icon-192.png" type="image/png" />
 
-  <body>
-    <div id="root"></div>
-    
-    <!-- Animated Loader -->
-<div id="loader">
-  <img src="/assets/icon-192.png" alt="Loading..." class="pulse">
-</div>
+  <!-- PWA Support -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="VibeCode" />
+  <link rel="apple-touch-icon" href="/assets/icon-192.png" />
+  <link rel="apple-touch-startup-image" href="/assets/splash.png" />
 
-<style>
-  #loader {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #00ffff;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #ccc;
+    }
+    .email {
+      margin-top: 2rem;
+    }
+    input[type="email"] {
+      padding: 0.5rem;
+      font-family: inherit;
+      border: none;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+    }
+    button {
+      background-color: #00ffff;
+      color: #000;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #00dddd;
+    }
+    footer {
+      position: absolute;
+      bottom: 1rem;
+      font-size: 0.8rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
 
-  .pulse {
-    width: 100px;
-    animation: pulse 1.5s infinite;
-  }
+  <h1>🚀 VibeCode</h1>
+  <p>Build & deploy full-stack apps from your phone with nothing but a prompt.</p>
+  <p><strong>Coming Soon.</strong> Be the first to try the beta.</p>
 
-  @keyframes pulse {
-    0%   { transform: scale(1);   opacity: 0.6; }
-    50%  { transform: scale(1.2); opacity: 1;   }
-    100% { transform: scale(1);   opacity: 0.6; }
-  }
-</style>
+  <div class="email">
+    <!-- Replace with your form service or use mailto for now -->
+    <form action="mailto:press@pacmacmobile.com" method="POST" enctype="text/plain">
+      <input type="email" name="email" placeholder="Your email" required />
+      <button type="submit">Notify Me</button>
+    </form>
+  </div>
 
-<script>
-  window.addEventListener("load", () => {
-    document.getElementById("loader").style.display = "none";
-  });
-</script>
+  <footer>
+    &copy; 2025 VibeCode – Powered by GPT, GitHub & Render
+  </footer>
 
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-          .then(reg => console.log('✅ Service Worker registered!', reg))
-          .catch(err => console.warn('❌ Service Worker failed:', err));
-      }
-    </script>
-    <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('✅ Service worker registered');
-
-        // Show "Update Available" if new service worker is waiting
-        reg.onupdatefound = () => {
-          const newWorker = reg.installing;
-          newWorker.onstatechange = () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              alert("🚀 Update Available! Refresh to see the latest version.");
-            }
-          };
-        };
-      })
-      .catch(err => {
-        console.warn('❌ Service worker registration failed:', err);
-      });
-  }
-</script>
-
-<script>
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    console.log("📲 Install prompt captured");
-
-    // OPTIONAL: Trigger later
-    // deferredPrompt.prompt();
-  });
-</script>
-
-    <script src="aboutme.js"></script>
-
-<script>
-  if (window.matchMedia('(display-mode: browser)').matches && /iPhone|iPad/.test(navigator.userAgent)) {
-    alert("🚀 To install VibeCode, tap the Share icon and choose 'Add to Home Screen'");
-  }
-</script>
-    
-  </body>
+</body>
 </html>
