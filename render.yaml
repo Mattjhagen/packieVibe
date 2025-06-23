@@ -1,0 +1,7 @@
+# .render.yaml
+services:
+  - type: static
+    name: packieVibe
+    env: static
+    buildCommand: "echo \"\""
+    publish: docs
