@@ -53,7 +53,7 @@ We’re inviting early users to:
 - 🚀 Help us go viral
 
 👉 [Join the waitlist](docs/signup.html)  
-👉 [Read the blog](docs/blog.html)  
+👉 [Read the blog](https://medium.com/me/settings#account)  
 👉 [Follow development](https://github.com/Mattjhagen/packieVibe)
 
 ---
