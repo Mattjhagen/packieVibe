@@ -1,0 +1,26 @@
+name: Convert Blog Markdown to HTML
+
+on:
+  push:
+    paths:
+      - 'docs/blog/*.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Convert Markdown to HTML
+        run: |
+          mkdir -p docs/blog/html
+          for file in docs/blog/*.md; do
+            name=$(basename "$file" .md)
+            pandoc "$file" -o "docs/blog/${name}.html" --metadata title="VibeCode Blog"
+          done
+      - name: Commit HTML files
+        run: |
+          git config --global user.name 'VibeCode Bot'
+          git config --global user.email 'bot@vibecode.ai'
+          git add docs/blog/*.html
+          git commit -m "Auto-generate blog HTML" || echo "No changes"
+          git push

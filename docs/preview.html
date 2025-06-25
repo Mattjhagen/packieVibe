@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VibeCode Preview</title>
+</head>
+<body>
+  <div id="preview"></div>
+  <script>
+    const html = localStorage.getItem("generatedHTML");
+    if (html) {
+      document.getElementById("preview").innerHTML = html;
+    } else {
+      document.getElementById("preview").innerText = "⚠️ No app found. Please go back and generate one.";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VibeCode Pre-Release Signup</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = 'https://your-project.supabase.co';
+    const SUPABASE_ANON_KEY = 'your-anon-key';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  </script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f1117;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    form {
+      margin-top: 1rem;
+      background: #1a1d23;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 1rem;
+      border: none;
+      border-radius: 5px;
+    }
+    input { background: #2b2e36; color: white; }
+    button { background: #00ffff; color: #0f1117; font-weight: bold; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Join the Pre-Release</h1>
+  <form id="signupForm">
+    <input type="email" id="email" placeholder="Enter your email" required />
+    <button type="submit">Notify Me</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const { data, error } = await supabase.from('signups').insert([{ email }]);
+      if (error) {
+        alert("❌ Error: " + error.message);
+      } else {
+        alert("✅ You're on the list!");
+        form.reset();
+      }
+    });
+  </script>
+</body>
+</html>

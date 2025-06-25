@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body style="background: #0f1117; color: white; padding: 2rem;">
+  <h1>🛠️ Post to VibeCode Blog</h1>
+
+  <div id="login" style="margin-bottom: 1rem;">
+    <button onclick="login()">🔐 Sign In with GitHub</button>
+  </div>
+
+  <div id="form" style="display:none;">
+    <input type="text" id="title" placeholder="Title" /><br><br>
+    <input type="text" id="slug" placeholder="Slug (no spaces)" /><br><br>
+    <textarea id="excerpt" placeholder="Excerpt..."></textarea><br><br>
+    <button onclick="post()">✅ Publish Post</button>
+  </div>
+
+  <script>
+    const supabase = supabase.createClient('https://your-project.supabase.co', 'your-anon-key');
+
+    async function login() {
+      const { data, error } = await supabase.auth.signInWithOAuth({ provider: 'github' });
+    }
+
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (session && session.user.email === 'info@pacmacmobile.com') {
+        document.getElementById('form').style.display = 'block';
+        document.getElementById('login').style.display = 'none';
+      } else {
+        alert('Only admins allowed');
+      }
+    });
+
+    async function post() {
+      const { error } = await supabase.from('posts').insert([{
+        title: document.getElementById('title').value,
+        slug: document.getElementById('slug').value,
+        excerpt: document.getElementById('excerpt').value,
+        published: true
+      }]);
+      if (error) alert('❌ Error: ' + error.message);
+      else alert('✅ Post added!');
+    }
+  </script>
+</body>
+</html>
